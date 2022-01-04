@@ -9,3 +9,5 @@ SUCCESSFULL_LOGIN_MESSAGE = {'status_code' : 200, 'message' : 'You are successfu
 INCORRECT_ACCESS_TOKEN_MESSAGE = {'status_code' : 401, 'message' : 'Provided access token is incorrect.'}
 
 SUCCESSFULL_POST_CREATE_MESSAGE = {'status_code' : 200, 'message' : 'Post was successfully created.', 'post_id' : None}
+
+SUCCESSFULL_LIKE_POST_MESSAGE = {'status_code' : 200, 'message' : 'Post was successfully liked.'}
