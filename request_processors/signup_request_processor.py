@@ -1,5 +1,5 @@
-from request_processor import RequestProcessor
-from error_messages import *
+from .request_processor import RequestProcessor
+from .error_messages import *
 
 class SignupRequestProcessor(RequestProcessor):
     required_input_keys = ['login', 'password']

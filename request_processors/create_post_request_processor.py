@@ -1,5 +1,5 @@
-from request_processor import RequestProcessor
-from error_messages import *
+from .request_processor import RequestProcessor
+from .error_messages import *
 
 class CreatePostRequestProcessor(RequestProcessor):
     required_fields = ['access_token', 'post_text']
