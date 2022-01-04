@@ -17,9 +17,10 @@ class LoginRequestProcessor(RequestProcessor):
 
         access_token = self._create_access_token(payload)
 
-        SUCCESSFULL_LOGIN_MESSAGE['access_token'] = access_token
+        message = SUCCESSFULL_LOGIN_MESSAGE.copy()
+        message['access_token'] = access_token
 
-        return SUCCESSFULL_LOGIN_MESSAGE
+        return message
 
     def _create_access_token(self, payload):
         user = self.database.get_user(payload['login'], payload['password'])
