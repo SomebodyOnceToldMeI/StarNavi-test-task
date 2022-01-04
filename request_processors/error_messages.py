@@ -11,3 +11,6 @@ INCORRECT_ACCESS_TOKEN_MESSAGE = {'status_code' : 401, 'message' : 'Provided acc
 SUCCESSFULL_POST_CREATE_MESSAGE = {'status_code' : 200, 'message' : 'Post was successfully created.', 'post_id' : None}
 
 SUCCESSFULL_LIKE_POST_MESSAGE = {'status_code' : 200, 'message' : 'Post was successfully liked.'}
+
+SUCCESSFULL_UNLIKE_POST_MESSAGE = {'status_code' : 200, 'message' : 'Post was successfully unliked.'}
+POST_WAS_NOT_LIKED_MESSAGE = {'status_code' : 400, 'message' : 'Could not unlike the post because it was not liked before.'}
