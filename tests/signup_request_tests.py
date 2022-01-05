@@ -16,7 +16,7 @@ from request_processors.error_messages import *
 def user_gets_error_if_payload_is_incorrect():
     print('Running test: user_gets_error_if_payload_is_incorrect')
 
-    payload = {'login' : 'test_login'} #no password 
+    payload = {'login' : 'test_login'} #no password
     request = MagicMock()
     request.json = payload
 
@@ -29,5 +29,6 @@ def user_gets_error_if_payload_is_incorrect():
     except:
         print('Test failed.')
         print('Returned message: ', message)
+    print('Test passed.')
 
 user_gets_error_if_payload_is_incorrect()
