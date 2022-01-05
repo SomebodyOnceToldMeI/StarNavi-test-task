@@ -10,7 +10,7 @@ if 'tests' in os.getcwd():
 else:
     sys.path.insert(0, os.getcwd())
 
-from request_processors.login_request_processor import CreatePostRequestProcessor
+from request_processors.create_post_request_processor import CreatePostRequestProcessor
 from request_processors.error_messages import *
 from user import User
 from post import Post
@@ -76,5 +76,5 @@ def post_is_successfully_created_and_user_gets_success_message_if_token_is_corre
 
 
 user_gets_error_if_payload_is_incorrect()
-user_gets_error_if_credentials_are_incorrect()
-user_is_successfully_authenticated_and_receives_access_key()
+user_gets_error_if_access_token_is_incorrect()
+post_is_successfully_created_and_user_gets_success_message_if_token_is_correct()
