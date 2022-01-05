@@ -2,7 +2,7 @@ from .request_processor import RequestProcessor
 from .error_messages import *
 
 class LikePostRequestProcessor(RequestProcessor):
-    required_fields = ['access_token', 'post_id']
+    required_input_keys = ['access_token', 'post_id']
 
     def process(self):
         payload = self.request.json
