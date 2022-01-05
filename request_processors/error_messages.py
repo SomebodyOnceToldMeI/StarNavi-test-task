@@ -1,4 +1,5 @@
 BAD_REQUEST_ERROR_MESSAGE = {'status_code' : 400, 'message' : 'Your request has no payload or payload structure is wrong.'}
+USER_IS_ALREADY_SIGNED_UP = {'status_code' : 400, 'message' : 'User with inserted credentials is already signed up.'}
 
 SUCCESSFULL_SIGNUP_MESSAGE = {'status_code' : 200, 'message' : 'You are successfully signed up.'}
 

@@ -13,5 +13,7 @@ class SignupRequestProcessor(RequestProcessor):
         user = self.database.get_user(payload['login'], payload['password'])
         if not user:
             self.database.create_user(payload['login'],payload['password'])
+        else:
+            return USER_IS_ALREADY_SIGNED_UP
 
         return SUCCESSFULL_SIGNUP_MESSAGE
