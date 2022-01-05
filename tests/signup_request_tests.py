@@ -52,6 +52,26 @@ def user_gets_error_if_is_already_registered_and_user_is_not_created_in_database
         print('Test failed.')
         print('Returned message: ', message)
 
+def user_is_successfully_registered():
+    print('Running test: user_is_successfully_registered')
+    payload = {'login' : 'test_login', 'password' : 'test_password'}
+    request = MagicMock()
+    request.json = payload
+
+    database = MagicMock()
+    database.get_user = MagicMock(return_value = False) #get_user returns True to imitate that user exists
+
+    rp = SignupRequestProcessor(request, database)
+    message = rp.process()
+    try:
+        assert message == SUCCESSFULL_SIGNUP_MESSAGE
+        database.create_user.assert_called()
+        print('Test passed.')
+    except:
+        print('Test failed.')
+        print('Returned message: ', message)
+
 
 user_gets_error_if_payload_is_incorrect()
 user_gets_error_if_is_already_registered_and_user_is_not_created_in_database()
+user_is_successfully_registered()
