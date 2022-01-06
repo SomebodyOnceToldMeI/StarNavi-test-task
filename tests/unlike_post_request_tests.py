@@ -61,8 +61,8 @@ def post_is_successfully_unliked_and_user_gets_success_message_if_token_is_corre
 
     database = MagicMock()
     user = User('test_login', 'test_password', 1)
-    database.get_user_by_access_token = MagicMock(return_value = user) #get_user returns True to imitate that user exists
     rp = UnlikePostRequestProcessor(request, database)
+    rp._verify_access_token_and_get_user = MagicMock(return_value = user)
     message = rp.process()
     try:
         assert message == SUCCESSFULL_UNLIKE_POST_MESSAGE

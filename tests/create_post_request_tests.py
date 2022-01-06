@@ -60,10 +60,10 @@ def post_is_successfully_created_and_user_gets_success_message_if_token_is_corre
     request.json = payload
 
     database = MagicMock()
-    database.get_user_by_access_token = MagicMock(return_value = User('test_login', 'test_password', 1)) #get_user returns True to imitate that user exists
     database.create_post = MagicMock(return_value = Post('text', 1))
 
     rp = CreatePostRequestProcessor(request, database)
+    rp._verify_access_token_and_get_user = MagicMock(return_value= User('test_login', 'test_password', 1))
     message = rp.process()
     try:
         assert message.get('post_id')
