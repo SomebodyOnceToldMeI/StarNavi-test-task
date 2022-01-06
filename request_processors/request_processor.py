@@ -1,6 +1,7 @@
 from .error_messages import BAD_REQUEST_ERROR_MESSAGE
 
 class RequestProcessor:
+    secret = 'secret'
     required_input_keys = [] #keys that request payload has to contain
 
     def __init__(self, request, database):

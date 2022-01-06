@@ -26,9 +26,8 @@ class LoginRequestProcessor(RequestProcessor):
         user = self.database.get_user(payload['login'], payload['password'])
 
         access_token_payload = {'user_id' : user.get_id(), 'login' : user.get_login()}
-        secret = 'secret'
 
-        access_token = jwt.encode(access_token_payload, secret, algorithm='HS256')
+        access_token = jwt.encode(access_token_payload, self.secret, algorithm='HS256')
 
         self.database.set_access_token_for_user(user, access_token)
         return access_token
