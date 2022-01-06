@@ -74,10 +74,16 @@ class Database:
         self._create_activity(user, 'like_post', timestamp=timestamp)
 
     def remove_like_from_post(self, user, post_id):
-        self.cursor.execute('DELETE FROM likes WHERE user_id = ? AND post_id = ?;', (user.get_id(), post_id))
-        self.conn.commit()
+        self.cursor.execute('SELECT * FROM likes WHERE user_id = ? AND post_id = ?', (user.get_id(), post_id))
+        like = self.cursor.fetchone()
+        if not like:
+            return False
+        else:
+            self.cursor.execute('DELETE FROM likes WHERE user_id = ? AND post_id = ?;', (user.get_id(), post_id))
+            self.conn.commit()
 
-        self._create_activity(user, 'unlike_post')
+            self._create_activity(user, 'unlike_post')
+            return True
 
     def _create_activity(self, user, activity, timestamp = None):
         if not timestamp:
