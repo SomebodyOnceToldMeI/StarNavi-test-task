@@ -15,3 +15,4 @@ SUCCESSFULL_LIKE_POST_MESSAGE = {'status_code' : 200, 'message' : 'Post was succ
 
 SUCCESSFULL_UNLIKE_POST_MESSAGE = {'status_code' : 200, 'message' : 'Post was successfully unliked.'}
 POST_WAS_NOT_LIKED_MESSAGE = {'status_code' : 400, 'message' : 'Could not unlike the post because it was not liked before.'}
+POST_IS_ALREADY_LIKED_MESSAGE = {'status_code' : 400, 'message' : 'Post was not liked because it was already liked before.'}

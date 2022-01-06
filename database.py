@@ -65,6 +65,10 @@ class Database:
         return post
 
 
+    def is_post_liked_by_user(self, user, post_id):
+        self.cursor.execute('SELECT * FROM likes WHERE user_id = ? AND post_id = ?;', (user.get_id(), post_id))
+        result = self.cursor.fetchone()
+        return bool(result)
 
     def add_like_to_post(self, user, post_id):
         timestamp = int(time.time())
