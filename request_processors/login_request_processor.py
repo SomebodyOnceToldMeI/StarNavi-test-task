@@ -19,6 +19,8 @@ class LoginRequestProcessor(RequestProcessor):
         if not user:
             return USER_DOES_NOT_EXIST_ERROR_MESSAGE
 
+
+        self.database.create_activity(user, 'login')
         expiration_timestamp = int((datetime.datetime.now() + datetime.timedelta(hours=1)).timestamp())
         access_token = self._create_access_token(payload, expiration_timestamp)
 

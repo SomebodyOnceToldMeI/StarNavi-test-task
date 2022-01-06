@@ -48,7 +48,6 @@ class Database:
         self.conn.commit()
 
         user = self.get_user(login, password)
-        self._create_activity(user, 'registration')
 
         return user
 
@@ -58,7 +57,6 @@ class Database:
         self.cursor.execute('INSERT INTO posts (user_id, post_text, creation_timestamp) VALUES (?, ?, ?);', (user.get_id(), post_text, timestamp))
         self.conn.commit()
 
-        self._create_activity(user, 'create_post', timestamp=timestamp)
         self.cursor.execute('SELECT * FROM posts WHERE user_id = ? AND post_text = ? AND creation_timestamp = ?;', (user.get_id(), post_text, timestamp))
         post = self.cursor.fetchone()
         post = Post(post[2], post[0])
@@ -83,7 +81,6 @@ class Database:
         self.cursor.execute('INSERT INTO likes (user_id, post_id, creation_timestamp) VALUES (?, ?, ?);', (user.get_id(), post_id, timestamp))
         self.conn.commit()
 
-        self._create_activity(user, 'like_post', timestamp=timestamp)
 
     def remove_like_from_post(self, user, post_id):
         self.cursor.execute('SELECT * FROM likes WHERE user_id = ? AND post_id = ?', (user.get_id(), post_id))
@@ -94,12 +91,24 @@ class Database:
             self.cursor.execute('DELETE FROM likes WHERE user_id = ? AND post_id = ?;', (user.get_id(), post_id))
             self.conn.commit()
 
-            self._create_activity(user, 'unlike_post')
             return True
 
-    def _create_activity(self, user, activity, timestamp = None):
+    def create_activity(self, user, activity, timestamp = None):
         if not timestamp:
             timestamp = int(time.time())
 
         self.cursor.execute('INSERT INTO user_activity (user_id, activity, activity_timestamp) VALUES (?, ?, ?);', (user.get_id(), activity, timestamp))
         self.conn.commit()
+
+    def get_last_activity_for_user(self, user):
+        self.cursor.execute('SELECT * FROM user_activity WHERE user_id = ? AND activity = "login" ORDER BY activity_timestamp DESC;', (user.get_id(),))
+        last_login = self.cursor.fetchone()
+        if last_login:
+            last_login = last_login[2]
+
+        self.cursor.execute('SELECT * FROM user_activity WHERE user_id = ? ORDER BY activity_timestamp DESC;', (user.get_id(),))
+        last_action = self.cursor.fetchone()
+        if last_action:
+            last_action = {'action' : last_action[1], 'timestamp' : last_action[2]}
+
+        return last_login, last_action

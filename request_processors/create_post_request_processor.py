@@ -17,6 +17,7 @@ class CreatePostRequestProcessor(RequestProcessor):
         if not user:
             return INCORRECT_ACCESS_TOKEN_MESSAGE
 
+        self.database.create_activity(user, 'create_post')
         post = self.database.create_post(user, payload['post_text'])
 
         message = SUCCESSFULL_POST_CREATE_MESSAGE.copy()

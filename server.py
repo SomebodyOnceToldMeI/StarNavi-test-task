@@ -5,6 +5,7 @@ from request_processors.login_request_processor import LoginRequestProcessor
 from request_processors.create_post_request_processor import CreatePostRequestProcessor
 from request_processors.like_post_request_processor import LikePostRequestProcessor
 from request_processors.unlike_post_request_processor import UnlikePostRequestProcessor
+from request_processors.user_activity_request_processor import UserActivityRequestProcessor
 
 from database import Database
 
@@ -51,9 +52,9 @@ def post_analytics():
 
 @app.route('/user_activity')
 def user_activity():
-    request_payload = request.json
-    if not request_payload:
-        return EMPTY_REQUEST_ERROR_MESSAGE
+    rp = UserActivityRequestProcessor(request, db)
+    response = rp.process()
+    return response
 
 if __name__ == '__main__':
     app.run(host='localhost', port='8080')

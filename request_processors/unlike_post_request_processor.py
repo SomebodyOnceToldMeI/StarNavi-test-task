@@ -17,7 +17,7 @@ class UnlikePostRequestProcessor(RequestProcessor):
         if not user:
             return INCORRECT_ACCESS_TOKEN_MESSAGE
 
-
+        self.database.create_activity(user, 'unlike_post')
         post = self.database.get_post(payload['post_id'])
 
         if post:
