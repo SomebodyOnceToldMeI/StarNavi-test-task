@@ -11,9 +11,6 @@ class Database:
         create_users_table_sql = 'CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT, login text, password text)'
         self.cursor.execute(create_users_table_sql)
 
-        create_access_tokens_table_sql = 'CREATE TABLE access_tokens (user_id INT, access_token text)'
-        self.cursor.execute(create_access_tokens_table_sql)
-
         create_posts_table_sql = 'CREATE TABLE posts (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INT, post_text text, creation_timestamp INT)'
         self.cursor.execute(create_posts_table_sql)
 
@@ -25,7 +22,6 @@ class Database:
 
     def truncate_database(self):
         self.cursor.execute('DELETE FROM users;')
-        self.cursor.execute('DELETE FROM access_tokens;')
         self.cursor.execute('DELETE FROM posts;')
         self.cursor.execute('DELETE FROM likes;')
         self.cursor.execute('DELETE FROM user_activity;')
@@ -42,15 +38,6 @@ class Database:
         else:
             return None
 
-    def get_user_by_access_token(self, access_token):
-        self.cursor.execute('SELECT id, login FROM users JOIN access_tokens ON user_id=id WHERE access_token = ?;', (access_token,))
-        user = self.cursor.fetchone()
-
-        if user:
-            user = User(user[1], None, user[0])
-            return user
-        else:
-            return None
 
     def create_user(self, login, password):
         self.cursor.execute('INSERT INTO users (login, password) VALUES (?, ?);', (login, password))
@@ -61,11 +48,6 @@ class Database:
 
         return user
 
-    def set_access_token_for_user(self, user, access_token):
-        self.cursor.execute('INSERT INTO access_tokens (user_id, access_token) VALUES (?, ?);', (user.get_id(), access_token))
-        self.conn.commit()
-
-        self._create_activity(user, 'login')
 
     def create_post(self, user, post_text):
         timestamp = int(time.time())
