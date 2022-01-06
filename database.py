@@ -28,7 +28,7 @@ class Database:
         self.conn.commit()
 
 
-    def get_user(self, login, password, id = None):
+    def get_user(self, login=None, password=None, id = None):
         if id:
             self.cursor.execute('SELECT * FROM users WHERE id = ?;', (id, ))
         else:
