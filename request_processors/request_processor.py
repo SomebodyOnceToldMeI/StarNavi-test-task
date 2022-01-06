@@ -1,5 +1,6 @@
 from .error_messages import BAD_REQUEST_ERROR_MESSAGE
 import jwt
+import datetime
 
 class RequestProcessor:
     secret = 'secret'
@@ -26,5 +27,8 @@ class RequestProcessor:
 
     def _verify_access_token_and_get_user(self, access_token):
         token_payload = jwt.decode(access_token, self.secret, algorithms = ['HS256'])
+        if token_payload['expiration_timestamp'] < datetime.datetime.now().timestamp():
+            return None
+
         user = self.database.get_user(id = token_payload['user_id'])
         return user
