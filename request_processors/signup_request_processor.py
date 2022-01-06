@@ -5,7 +5,10 @@ class SignupRequestProcessor(RequestProcessor):
     required_input_keys = ['login', 'password']
 
     def process(self):
-        payload = self.request.json
+        try:
+            payload = self.request.json
+        except:
+            payload = None
         error_message = self._verify_payload(payload)
         if error_message:
             return error_message
