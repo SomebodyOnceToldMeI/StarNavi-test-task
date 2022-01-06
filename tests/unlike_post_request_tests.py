@@ -60,6 +60,10 @@ def post_is_successfully_unliked_and_user_gets_success_message_if_token_is_corre
     request.json = payload
 
     database = MagicMock()
+    post = Post('', 1)
+    database.get_post = MagicMock(return_value=post)
+    database.is_post_liked_by_user = MagicMock(return_value = True)
+
     user = User('test_login', 'test_password', 1)
     rp = UnlikePostRequestProcessor(request, database)
     rp._verify_access_token_and_get_user = MagicMock(return_value = user)
