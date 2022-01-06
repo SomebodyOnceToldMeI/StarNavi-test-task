@@ -67,8 +67,11 @@ class Database:
     def get_post(self, post_id):
         self.cursor.execute('SELECT * FROM posts WHERE id = ?;', (post_id, ))
         post = self.cursor.fetchone()
-        post = Post(post[2], post[0])
-        return post
+        if post:
+            post = Post(post[2], post[0])
+            return post
+        else:
+            return None
 
     def is_post_liked_by_user(self, user, post_id):
         self.cursor.execute('SELECT * FROM likes WHERE user_id = ? AND post_id = ?;', (user.get_id(), post_id))
