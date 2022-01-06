@@ -1,6 +1,7 @@
 import sqlite3
 import time
 from user import User
+from post import Post
 
 class Database:
     def __init__(self):
@@ -58,6 +59,11 @@ class Database:
         self.conn.commit()
 
         self._create_activity(user, 'create_post', timestamp=timestamp)
+        self.cursor.execute('SELECT * FROM posts WHERE user_id = ? AND post_text = ? AND creation_timestamp = ?;', (user.get_id(), post_text, timestamp))
+        post = self.cursor.fetchone()
+        post = Post(post[2], post[0])
+        return post
+
 
 
     def add_like_to_post(self, user, post_id):
