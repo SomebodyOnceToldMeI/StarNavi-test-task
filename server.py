@@ -1,37 +1,47 @@
 from flask import Flask, request
-from error_messages import *
+from request_processors.error_messages import *
+from request_processors.signup_request_processor import SignupRequestProcessor
+from request_processors.login_request_processor import LoginRequestProcessor
+from request_processors.create_post_request_processor import CreatePostRequestProcessor
+from request_processors.like_post_request_processor import LikePostRequestProcessor
+from request_processors.unlike_post_request_processor import UnlikePostRequestProcessor
+
+from database import Database
+
+db = Database()
 
 app = Flask(__name__)
 
 @app.route('/signup')
 def signup():
-    request_payload = request.json
-    if not request_payload:
-        return EMPTY_REQUEST_ERROR_MESSAGE
+    rp = SignupRequestProcessor(request, db)
+    response = rp.process()
+    print(response)
+    return response
 
 @app.route('/login')
 def login():
-    request_payload = request.json
-    if not request_payload:
-        return EMPTY_REQUEST_ERROR_MESSAGE
+    rp = LoginRequestProcessor(request, db)
+    response = rp.process()
+    return response
 
 @app.route('/create_post')
 def create_post():
-    request_payload = request.json
-    if not request_payload:
-        return EMPTY_REQUEST_ERROR_MESSAGE
+    rp = CreatePostRequestProcessor(request, db)
+    response = rp.process()
+    return response
 
 @app.route('/like_post')
 def like_post():
-    request_payload = request.json
-    if not request_payload:
-        return EMPTY_REQUEST_ERROR_MESSAGE
+    rp = LikePostRequestProcessor(request, db)
+    response = rp.process()
+    return response
 
 @app.route('/unlike_post')
 def unlike_post():
-    request_payload = request.json
-    if not request_payload:
-        return EMPTY_REQUEST_ERROR_MESSAGE
+    rp = UnlikePostRequestProcessor(request, db)
+    response = rp.process()
+    return response
 
 @app.route('/post_analytics')
 def post_analytics():

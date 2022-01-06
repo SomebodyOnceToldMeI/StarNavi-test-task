@@ -5,7 +5,7 @@ from post import Post
 
 class Database:
     def __init__(self):
-        self.conn = sqlite3.connect('database.db')
+        self.conn = sqlite3.connect('database.db', check_same_thread=False)
         self.cursor = self.conn.cursor()
 
     def create_database(self):
