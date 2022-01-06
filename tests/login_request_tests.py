@@ -65,7 +65,6 @@ def user_is_successfully_authenticated_and_receives_access_key():
     message = rp.process()
     try:
         assert message.get('access_token')
-        database.set_access_token_for_user.assert_called()
         print('Test passed.')
     except:
         print('Test failed.')
