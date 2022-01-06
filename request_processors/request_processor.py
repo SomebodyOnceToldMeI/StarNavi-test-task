@@ -26,7 +26,10 @@ class RequestProcessor:
                 return BAD_REQUEST_ERROR_MESSAGE
 
     def _verify_access_token_and_get_user(self, access_token):
-        token_payload = jwt.decode(access_token, self.secret, algorithms = ['HS256'])
+        try:
+            token_payload = jwt.decode(access_token, self.secret, algorithms = ['HS256'])
+        except:
+            return None
         if token_payload['expiration_timestamp'] < datetime.datetime.now().timestamp():
             return None
 
