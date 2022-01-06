@@ -14,7 +14,14 @@ class UnlikePostRequestProcessor(RequestProcessor):
         if not user:
             return INCORRECT_ACCESS_TOKEN_MESSAGE
 
-        if self.database.remove_like_from_post(user, payload['post_id']):
-            return SUCCESSFULL_UNLIKE_POST_MESSAGE
+
+        post = self.database.get_post(payload['post_id'])
+
+        if post:
+
+            if self.database.remove_like_from_post(user, post.get_id()):
+                return SUCCESSFULL_UNLIKE_POST_MESSAGE
+            else:
+                return POST_WAS_NOT_LIKED_MESSAGE
         else:
-            return POST_WAS_NOT_LIKED_MESSAGE
+            return POST_DOES_NOT_EXIST_MESSAGE

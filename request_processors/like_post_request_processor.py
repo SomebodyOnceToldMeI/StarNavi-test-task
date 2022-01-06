@@ -14,7 +14,14 @@ class LikePostRequestProcessor(RequestProcessor):
         if not user:
             return INCORRECT_ACCESS_TOKEN_MESSAGE
 
-        if self.database.is_post_liked_by_user(user, payload['post_id']):
-            return POST_IS_ALREADY_LIKED_MESSAGE
-        self.database.add_like_to_post(user, payload['post_id'])
-        return SUCCESSFULL_LIKE_POST_MESSAGE
+        post = self.database.get_post(payload['post_id'])
+        if post:
+
+            if self.database.is_post_liked_by_user(user, post.get_id()):
+                return POST_IS_ALREADY_LIKED_MESSAGE
+
+            self.database.add_like_to_post(user, post.get_id())
+            return SUCCESSFULL_LIKE_POST_MESSAGE
+
+        else:
+            return POST_DOES_NOT_EXIST_MESSAGE
