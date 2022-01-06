@@ -28,8 +28,11 @@ class Database:
         self.conn.commit()
 
 
-    def get_user(self, login, password):
-        self.cursor.execute('SELECT * FROM users WHERE login = ? AND password = ?;', (login, password))
+    def get_user(self, login, password, id = None):
+        if id:
+            self.cursor.execute('SELECT * FROM users WHERE id = ?;', (id, ))
+        else:
+            self.cursor.execute('SELECT * FROM users WHERE login = ? AND password = ?;', (login, password))
         user = self.cursor.fetchone()
 
         if user:
