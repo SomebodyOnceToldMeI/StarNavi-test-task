@@ -10,7 +10,7 @@ class UnlikePostRequestProcessor(RequestProcessor):
         if error_message:
             return error_message
 
-        user = self.database.get_user_by_access_token(payload['access_token'])
+        user = self._verify_access_token_and_get_user(payload['access_token'])
         if not user:
             return INCORRECT_ACCESS_TOKEN_MESSAGE
 
