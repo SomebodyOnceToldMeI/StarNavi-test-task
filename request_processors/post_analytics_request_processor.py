@@ -27,8 +27,8 @@ class PostAnalyticsRequestProcessor(RequestProcessor):
 
         likes = self.database.get_likes_for_post(post)
 
-        date_from = datetime.datetime.strptime(payload['date_from'], '%d-%m-%Y')
-        date_to = datetime.datetime.strptime(payload['date_to'], '%d-%m-%Y')
+        date_from = datetime.datetime.strptime(payload['date_from'], '%d-%m-%Y').date()
+        date_to = datetime.datetime.strptime(payload['date_to'], '%d-%m-%Y').date()
         aggregated_likes = self._aggregate_likes_by_day_from_date_to_date(likes,date_from ,date_to )
 
         message = {'status_code' : 200, 'likes' : aggregated_likes}
@@ -38,7 +38,7 @@ class PostAnalyticsRequestProcessor(RequestProcessor):
     def _aggregate_likes_by_day_from_date_to_date(self, likes, date_from, date_to):
         aggregated_likes = {}
         for like in likes:
-            date = datetime.datetime.fromtimestamp(like)
+            date = datetime.datetime.fromtimestamp(like).date()
             if not date >= date_from or not date <= date_to:
                 continue
 
