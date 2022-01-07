@@ -11,7 +11,7 @@ else:
     sys.path.insert(0, os.getcwd())
 
 from request_processors.signup_request_processor import SignupRequestProcessor
-from request_processors.error_messages import *
+from request_processors.response_messages import *
 
 def user_gets_error_if_payload_is_incorrect():
     print('Running test: user_gets_error_if_payload_is_incorrect')

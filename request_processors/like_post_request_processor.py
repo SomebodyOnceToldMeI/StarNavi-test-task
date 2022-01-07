@@ -1,5 +1,5 @@
 from .request_processor import RequestProcessor
-from .error_messages import *
+from .response_messages import *
 
 class LikePostRequestProcessor(RequestProcessor):
     required_input_keys = ['access_token', 'post_id']

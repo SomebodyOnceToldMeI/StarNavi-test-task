@@ -11,7 +11,7 @@ else:
     sys.path.insert(0, os.getcwd())
 
 from request_processors.user_activity_request_processor import UserActivityRequestProcessor
-from request_processors.error_messages import *
+from request_processors.response_messages import *
 from user import User
 from post import Post
 

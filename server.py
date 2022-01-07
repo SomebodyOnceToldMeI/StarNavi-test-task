@@ -1,5 +1,4 @@
 from flask import Flask, request
-from request_processors.error_messages import *
 from request_processors.signup_request_processor import SignupRequestProcessor
 from request_processors.login_request_processor import LoginRequestProcessor
 from request_processors.create_post_request_processor import CreatePostRequestProcessor

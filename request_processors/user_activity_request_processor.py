@@ -1,5 +1,5 @@
 from .request_processor import RequestProcessor
-from .error_messages import *
+from .response_messages import *
 
 class UserActivityRequestProcessor(RequestProcessor):
     required_input_keys = ['access_token', 'user_id']

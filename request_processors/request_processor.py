@@ -1,4 +1,4 @@
-from .error_messages import BAD_REQUEST_ERROR_MESSAGE
+from .response_messages import BAD_REQUEST_ERROR_MESSAGE
 import jwt
 import datetime
 
