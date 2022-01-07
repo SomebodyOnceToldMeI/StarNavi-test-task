@@ -76,7 +76,7 @@ def user_gets_error_if_requested_post_does_not_exist():
 
 def user_successfully_gets_aggregated_likes():
     print('Running test: user_successfully_gets_aggregated_likes')
-    payload = {'access_token' : 'token', 'post_id' : 1, 'date_from' : '05-01-2022', 'date_to' : '07-01-2022'}
+    payload = {'access_token' : 'token', 'post_id' : 1, 'date_from' : '05-01-2022', 'date_to' : '06-01-2022'}
     request = MagicMock()
     request.json = payload
 
@@ -92,9 +92,7 @@ def user_successfully_gets_aggregated_likes():
     rp._verify_access_token_and_get_user = MagicMock(return_value = user)
     message = rp.process()
     try:
-        assert message['status_code'] == 200
-        assert message['last_login'] == True
-        assert message['last_action'] == True
+        assert message['likes'] == {'05-01-2022': 4, '06-01-2022': 2}
 
         print('Test passed.')
     except:
