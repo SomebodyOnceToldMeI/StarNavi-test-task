@@ -26,7 +26,10 @@ class PostAnalyticsRequestProcessor(RequestProcessor):
             return POST_DOES_NOT_EXIST_MESSAGE
 
         likes = self.database.get_likes_for_post(post)
-        aggregated_likes = self._aggregate_likes_by_day_from_date_to_date(likes, datetime.datetime.strptime(date_from, '%d-%m-%Y'), datetime.datetime.strptime(date_to, '%d-%m-%Y'))
+
+        date_from = datetime.datetime.strptime(payload['date_from'], '%d-%m-%Y')
+        date_to = datetime.datetime.strptime(payload['date_to'], '%d-%m-%Y')
+        aggregated_likes = self._aggregate_likes_by_day_from_date_to_date(likes,date_from ,date_to )
 
         message = {'status_code' : 200, 'likes' : aggregated_likes}
 
