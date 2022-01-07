@@ -42,7 +42,7 @@ def user_gets_error_if_access_token_is_incorrect():
     request.json = payload
 
     database = MagicMock()
-    database.get_user_by_access_token = MagicMock(return_value = False) #get_user returns True to imitate that user exists
+    database.get_user_by_access_token = MagicMock(return_value = False) #returns false like user does not exist
 
     rp = UserActivityRequestProcessor(request, database)
     message = rp.process()

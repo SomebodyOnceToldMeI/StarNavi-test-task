@@ -59,7 +59,7 @@ def user_is_successfully_registered():
     request.json = payload
 
     database = MagicMock()
-    database.get_user = MagicMock(return_value = False) #get_user returns True to imitate that user exists
+    database.get_user = MagicMock(return_value = False) #returns false like user does not exist
 
     rp = SignupRequestProcessor(request, database)
     message = rp.process()

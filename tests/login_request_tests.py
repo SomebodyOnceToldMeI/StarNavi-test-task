@@ -41,7 +41,7 @@ def user_gets_error_if_credentials_are_incorrect():
     request.json = payload
 
     database = MagicMock()
-    database.get_user = MagicMock(return_value = False) #get_user returns True to imitate that user exists
+    database.get_user = MagicMock(return_value = False) #returns false like user does not exist
 
     rp = LoginRequestProcessor(request, database)
     message = rp.process()
@@ -59,7 +59,7 @@ def user_is_successfully_authenticated_and_receives_access_key():
     request.json = payload
 
     database = MagicMock()
-    database.get_user = MagicMock(return_value = User('test_login', 'test_password', 1)) #get_user returns True to imitate that user exists
+    database.get_user = MagicMock(return_value = User('test_login', 'test_password', 1))
 
     rp = LoginRequestProcessor(request, database)
     message = rp.process()
