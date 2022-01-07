@@ -6,6 +6,7 @@ from request_processors.create_post_request_processor import CreatePostRequestPr
 from request_processors.like_post_request_processor import LikePostRequestProcessor
 from request_processors.unlike_post_request_processor import UnlikePostRequestProcessor
 from request_processors.user_activity_request_processor import UserActivityRequestProcessor
+from request_processors.post_analytics_request_processor import PostAnalyticsRequestProcessor
 
 from database import Database
 
@@ -46,9 +47,9 @@ def unlike_post():
 
 @app.route('/post_analytics')
 def post_analytics():
-    request_payload = request.json
-    if not request_payload:
-        return EMPTY_REQUEST_ERROR_MESSAGE
+    rp = PostAnalyticsRequestProcessor(request, db)
+    response = rp.process()
+    return response
 
 @app.route('/user_activity')
 def user_activity():
