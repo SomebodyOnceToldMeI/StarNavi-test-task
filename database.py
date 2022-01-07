@@ -71,6 +71,16 @@ class Database:
         else:
             return None
 
+    def get_likes_for_post(self, post):
+        self.cursor.execute('SELECT * FROM likes WHERE post_id = ?;', (post.get_id(),))
+        likes = self.cursor.fetchall()
+        if likes:
+            likes = [like[2] for like in likes] #getting like timestamp
+            return likes
+        else:
+            return None
+
+
     def is_post_liked_by_user(self, user, post_id):
         self.cursor.execute('SELECT * FROM likes WHERE user_id = ? AND post_id = ?;', (user.get_id(), post_id))
         result = self.cursor.fetchone()
