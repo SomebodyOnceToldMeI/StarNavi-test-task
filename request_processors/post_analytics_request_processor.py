@@ -32,7 +32,7 @@ class PostAnalyticsRequestProcessor(RequestProcessor):
 
         return message
 
-    def _aggregate_likes_by_day(self, likes, date_from, date_to):
+    def _aggregate_likes_by_day_from_date_to_date(self, likes, date_from, date_to):
         aggregated_likes = {}
         for like in likes:
             date = datetime.datetime.fromtimestamp(like)
