@@ -8,8 +8,12 @@ from request_processors.user_activity_request_processor import UserActivityReque
 from request_processors.post_analytics_request_processor import PostAnalyticsRequestProcessor
 
 from database import Database
-
-db = Database()
+import os
+if not os.path.exists('database.db'):
+    db = Database()
+    db.create_database()
+else:
+    db = Database()
 
 app = Flask(__name__)
 
