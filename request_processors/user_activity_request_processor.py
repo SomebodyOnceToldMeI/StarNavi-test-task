@@ -21,7 +21,7 @@ class UserActivityRequestProcessor(RequestProcessor):
 
         requested_user = self.database.get_user(id=payload['user_id'])
         if not requested_user:
-            USER_DOES_NOT_EXIST_ERROR_MESSAGE
+            return USER_DOES_NOT_EXIST_ERROR_MESSAGE
 
         last_login, last_action = self.database.get_last_activity_for_user(requested_user)
         message = {'status_code' : 200,'last_login' : last_login, 'last_action' : last_action}
