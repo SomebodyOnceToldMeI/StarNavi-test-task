@@ -18,7 +18,6 @@ app = Flask(__name__)
 def signup():
     rp = SignupRequestProcessor(request, db)
     response = rp.process()
-    print(response)
     return response
 
 @app.route('/login')
